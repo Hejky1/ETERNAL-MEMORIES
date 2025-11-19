@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>Zvuková destička</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background:#111;
+      color:#f5f5f5;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      margin:0;
+      text-align:center;
+    }
+    .box {
+      background:#222;
+      padding:24px 20px;
+      border-radius:16px;
+      max-width:360px;
+      width:90%;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    }
+    h1 { font-size:20px; margin:0 0 8px; }
+    p  { font-size:14px; margin:0 0 16px; color:#ccc; }
+    audio { width:100%; }
+    .error { color:#ff7a7a; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Záznam zvuku</h1>
+    <p id="info">Klepni na přehrávač a poslouchej.</p>
+    <audio id="player" controls></audio>
+    <p id="error" class="error"></p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const audio = document.getElementById("player");
+    const error = document.getElementById("error");
+    const info = document.getElementById("info");
+
+    if (!id) {
+      error.textContent = "Chybí ID nahrávky v adrese.";
+      info.textContent = "";
+    } else {
+      const src = "audio/" + encodeURIComponent(id) + ".mp3";
+      audio.src = src;
+    }
+  </script>
+</body>
+</html>
