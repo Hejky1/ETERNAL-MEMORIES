@@ -1,0 +1,52 @@
+{
+  "TEST-001": {
+    "nadpis_stranky": "Testovací Destička",
+    "obsah": [
+      {
+        "typ": "text",
+        "text": "Gratuluji! Tvůj systém funguje. Toto je první test."
+      },
+      {
+        "typ": "video",
+        "nadpis": "Ukázkové video",
+        "zdroj": "dQw4w9WgXcQ"
+      }
+    ]
+  },
+
+  "2025-001-SVATBA": {
+    "nadpis_stranky": "Svatba Aničky a Petra",
+    "obsah": [
+      {
+        "typ": "video",
+        "nadpis": "Náš svatební slib",
+        "zdroj": "dQw4w9WgXcQ"
+      },
+      {
+        "typ": "odkaz",
+        "nadpis": "Otevřít fotogalerii (Google Photos)",
+        "url": "https://photos.google.com/"
+      }
+    ]
+  },
+
+  "DEV-DUM-01": {
+    "nadpis_stranky": "Tech. Pasport: Vila Jablonec",
+    "obsah": [
+      {
+        "typ": "text",
+        "text": "Sériové číslo kotle: GB-2025-XZ. Poslední revize: 11/2025."
+      },
+      {
+        "typ": "pdf",
+        "nadpis": "Stáhnout manuál ke kotli (PDF)",
+        "url": "https://www.google.com"
+      },
+      {
+        "typ": "volat",
+        "nadpis": "Volat Havarijní službu",
+        "cislo": "+420123456789"
+      }
+    ]
+  }
+}
