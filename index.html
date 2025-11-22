@@ -1,58 +1,191 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <title>Zvuková destička</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background:#111;
-      color:#f5f5f5;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      min-height:100vh;
-      margin:0;
-      text-align:center;
-    }
-    .box {
-      background:#222;
-      padding:24px 20px;
-      border-radius:16px;
-      max-width:360px;
-      width:90%;
-      box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    }
-    h1 { font-size:20px; margin:0 0 8px; }
-    p  { font-size:14px; margin:0 0 16px; color:#ccc; }
-    audio { width:100%; }
-    .error { color:#ff7a7a; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Načítám...</title>
+    <style>
+        /* LUXUSNÍ DESIGN - "Dark Premium" */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px; /* Na mobilu přes celý, na PC úzký pruh */
+            background: #1e1e1e;
+            min-height: 100vh;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+        
+        /* Styl pro jednotlivé karty obsahu */
+        .karta {
+            background: #2d2d2d;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease-in;
+        }
+        .karta-padding { padding: 15px; }
+        
+        h2 { margin: 0 0 10px 0; font-size: 1.1rem; color: #ddd; }
+        p { line-height: 1.6; color: #bbb; margin: 0; }
+
+        /* VIDEO */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* TLAČÍTKA (Odkazy, Volání) */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            text-align: center;
+            background: #007bff; /* Modrá */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        .btn:active { background: #0056b3; }
+        .btn-call { background: #28a745; } /* Zelená pro volání */
+        .btn-pdf { background: #dc3545; } /* Červená pro PDF */
+
+        /* Patička */
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 40px;
+            padding-bottom: 20px;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
 <body>
-  <div class="box">
-    <h1>Věčná vzpomínka</h1>
-    <p id="info">Klepni na přehrávač a užívej.</p>
-    <audio id="player" controls></audio>
-    <p id="error" class="error"></p>
-  </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    const audio = document.getElementById("player");
-    const error = document.getElementById("error");
-    const info = document.getElementById("info");
+    <div class="container">
+        <h1 id="page-title">Načítám data...</h1>
+        <div id="content-area"></div>
+        <div class="footer">Technology by Eternal Memory</div>
+    </div>
 
-    if (!id) {
-      error.textContent = "Chybí ID nahrávky v adrese.";
-      info.textContent = "";
-    } else {
-      const src = "audio/" + encodeURIComponent(id) + ".mp3";
-      audio.src = src;
-    }
-  </script>
+    <script>
+        async function nactiObsah() {
+            const params = new URLSearchParams(window.location.search);
+            const idDesticky = params.get('id'); 
+            
+            const titleEl = document.getElementById('page-title');
+            const contentEl = document.getElementById('content-area');
+
+            if (!idDesticky) {
+                titleEl.innerText = "Chyba kódu";
+                contentEl.innerHTML = "<p style='text-align:center'>Kód nebyl načten správně. Zkuste to znovu.</p>";
+                return;
+            }
+
+            try {
+                // Načtení databáze s ochranou proti cache (aby se změny projevily hned)
+                const response = await fetch('data.json?t=' + new Date().getTime());
+                if (!response.ok) throw new Error("Databáze nedostupná");
+                const db = await response.json();
+
+                const data = db[idDesticky];
+
+                if (!data) {
+                    titleEl.innerText = "Neznámý kód";
+                    contentEl.innerHTML = "<p style='text-align:center'>Tento kód v systému zatím neexistuje.</p>";
+                    return;
+                }
+
+                // Nastavení nadpisu stránky
+                document.title = data.nadpis_stranky || "Vzpomínka";
+                titleEl.innerText = data.nadpis_stranky;
+
+                // Generování obsahu
+                let html = "";
+                
+                if (data.obsah && data.obsah.length > 0) {
+                    data.obsah.forEach(item => {
+                        // 1. VIDEO (YouTube)
+                        if (item.typ === 'video') {
+                            html += `
+                                <div class="karta">
+                                    <div class="karta-padding"><h2>${item.nadpis}</h2></div>
+                                    <div class="video-wrapper">
+                                        <iframe src="https://www.youtube.com/embed/${item.zdroj}?rel=0" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                </div>`;
+                        } 
+                        // 2. TEXT
+                        else if (item.typ === 'text') {
+                            html += `
+                                <div class="karta karta-padding">
+                                    <p>${item.text}</p>
+                                </div>`;
+                        }
+                        // 3. ODKAZ (Galerie, Web)
+                        else if (item.typ === 'odkaz') {
+                            html += `
+                                <div class="karta karta-padding">
+                                    <a href="${item.url}" target="_blank" class="btn">${item.nadpis}</a>
+                                </div>`;
+                        }
+                        // 4. PDF (Manuály, Revize)
+                        else if (item.typ === 'pdf') {
+                            html += `
+                                <div class="karta karta-padding">
+                                    <a href="${item.url}" target="_blank" class="btn btn-pdf">📄 ${item.nadpis}</a>
+                                </div>`;
+                        }
+                        // 5. VOLÁNÍ (SOS tlačítko)
+                        else if (item.typ === 'volat') {
+                            html += `
+                                <div class="karta karta-padding">
+                                    <a href="tel:${item.cislo}" class="btn btn-call">📞 ${item.nadpis}</a>
+                                </div>`;
+                        }
+                    });
+                } else {
+                    html = "<p style='text-align:center'>Zatím zde není žádný obsah.</p>";
+                }
+
+                contentEl.innerHTML = html;
+
+            } catch (err) {
+                console.error(err);
+                titleEl.innerText = "Chyba spojení";
+                contentEl.innerHTML = "<p style='text-align:center'>Nepodařilo se načíst data. Zkontrolujte připojení.</p>";
+            }
+        }
+
+        nactiObsah();
+    </script>
 </body>
 </html>
