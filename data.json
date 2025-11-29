@@ -1,52 +1,25 @@
-{
-  "TEST-001": {
-    "nadpis_stranky": "Testovací Destička",
+,
+  "fantazie": {
+    "nadpis_stranky": "Moje Fantazie (Audio)",
     "obsah": [
       {
         "typ": "text",
-        "text": "Gratuluji! Tvůj systém funguje. Toto je první test."
-      },
-      {
-        "typ": "video",
-        "nadpis": "Ukázkové video",
-        "zdroj": "dQw4w9WgXcQ"
-      }
-    ]
-  },
-
-  "2025-001-SVATBA": {
-    "nadpis_stranky": "Svatba Aničky a Petra",
-    "obsah": [
-      {
-        "typ": "video",
-        "nadpis": "Náš svatební slib",
-        "zdroj": "dQw4w9WgXcQ"
+        "text": "Toto je archivovaná audio nahrávka."
       },
       {
         "typ": "odkaz",
-        "nadpis": "Otevřít fotogalerii (Google Photos)",
-        "url": "https://photos.google.com/"
-      }
-    ]
-  },
-
-  "DEV-DUM-01": {
-    "nadpis_stranky": "Tech. Pasport: Vila Jablonec",
-    "obsah": [
-      {
-        "typ": "text",
-        "text": "Sériové číslo kotle: GB-2025-XZ. Poslední revize: 11/2025."
+        "nadpis": "🎵 Přehrát Fantazii (MP3)",
+        "url": "https://em-cz.github.io/q/audio/fantazie.mp3"
       },
       {
-        "typ": "pdf",
-        "nadpis": "Stáhnout manuál ke kotli (PDF)",
-        "url": "https://www.google.com"
+        "typ": "odkaz",
+        "nadpis": "🎵 Přehrát TA (MP3)",
+        "url": "https://em-cz.github.io/q/audio/TA.mp3"
       },
       {
-        "typ": "volat",
-        "nadpis": "Volat Havarijní službu",
-        "cislo": "+420123456789"
+        "typ": "odkaz",
+        "nadpis": "🎵 Přehrát VIS (MP3)",
+        "url": "https://em-cz.github.io/q/audio/vis.mp3"
       }
     ]
   }
-}
