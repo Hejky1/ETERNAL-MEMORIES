@@ -7,17 +7,17 @@
         "text": "Toto je audio nahrávka."
       },
       {
-        "typ": "odkaz",
+        "typ": "audio",
         "nadpis": " Přehrát Fantazii (MP3)",
         "url": "https://em-cz.github.io/q/audio/fantazie.mp3"
       },
       {
-        "typ": "odkaz",
+        "typ": "audio",
         "nadpis": " Přehrát TA (MP3)",
         "url": "https://em-cz.github.io/q/audio/TA.mp3"
       },
       {
-        "typ": "odkaz",
+        "typ": "audio",
         "nadpis": " Přehrát VIS (MP3)",
         "url": "https://em-cz.github.io/q/audio/vis.mp3"
       }
