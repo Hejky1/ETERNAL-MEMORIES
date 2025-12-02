@@ -1,26 +1,24 @@
-{
-  "fantazie": {
-    "nadpis_stranky": "Moje Fantazie (Audio)",
+"fantazie": {
+    "nadpis_stranky": "Ukázka naší práce (Portfolio)",
     "obsah": [
       {
         "typ": "text",
-        "text": "Toto je audio nahrávka."
+        "text": "Tady vidíte, co všechno naše destičky umí. Můžete zde mít hudbu, video i fotogalerii."
       },
       {
         "typ": "audio",
-        "nadpis": " Přehrát Fantazii (MP3)",
-        "url": "https://em-cz.github.io/q/audio/fantazie.mp3"
-      },
-      {
-        "typ": "audio",
-        "nadpis": " Přehrát TA (MP3)",
+        "nadpis": "🎵 Ukázka audia (TA.mp3)",
         "url": "https://em-cz.github.io/q/audio/TA.mp3"
       },
       {
-        "typ": "audio",
-        "nadpis": " Přehrát VIS (MP3)",
-        "url": "https://em-cz.github.io/q/audio/vis.mp3"
+        "typ": "video",
+        "nadpis": "🎥 Ukázka videa",
+        "zdroj": "dQw4w9WgXcQ"
+      },
+      {
+        "typ": "odkaz",
+        "nadpis": "📸 Ukázka fotogalerie",
+        "url": "https://photos.google.com/"
       }
     ]
   }
-}
