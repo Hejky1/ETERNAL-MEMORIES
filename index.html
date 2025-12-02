@@ -164,7 +164,7 @@
             }
 
             try {
-                // Načtení databáze s ochranou proti cache (aby se změny projevily hned)
+                // Načtení databáze s ochranou proti cache
                 const response = await fetch('data.json?t=' + new Date().getTime());
                 if (!response.ok) throw new Error("Databáze nedostupná");
                 const db = await response.json();
@@ -186,8 +186,21 @@
                 
                 if (data.obsah && data.obsah.length > 0) {
                     data.obsah.forEach(item => {
+                        
+                        // --- 🎵 NOVÝ TYP: AUDIO PŘEHRÁVAČ ---
+                        if (item.typ === 'audio') {
+                            html += `
+                                <div class="karta karta-padding">
+                                    <h2>${item.nadpis}</h2>
+                                    <audio controls style="width: 100%; margin-top: 10px; border-radius: 50px; outline: none;">
+                                        <source src="${item.url}" type="audio/mpeg">
+                                        Váš prohlížeč nepodporuje audio element.
+                                    </audio>
+                                </div>`;
+                        }
+
                         // 1. VIDEO (YouTube)
-                        if (item.typ === 'video') {
+                        else if (item.typ === 'video') {
                             html += `
                                 <div class="karta">
                                     <div class="karta-padding"><h2>${item.nadpis}</h2></div>
