@@ -8,18 +8,28 @@
       },
       {
         "typ": "audio",
-        "nadpis": "🎵 Ukázka audia (TA.mp3)",
+        "nadpis": " Přehrát Fantazii (MP3)",
+        "url": "https://em-cz.github.io/q/audio/fantazie.mp3"
+      },
+      {
+        "typ": "audio",
+        "nadpis": " Přehrát TA (MP3)",
         "url": "https://em-cz.github.io/q/audio/TA.mp3"
       },
       {
+        "typ": "audio",
+        "nadpis": " Přehrát VIS (MP3)",
+        "url": "https://em-cz.github.io/q/audio/vis.mp3"
+      },
+      {
         "typ": "video",
-        "nadpis": "🎥 Ukázka videa",
-        "zdroj": "dQw4w9WgXcQ"
+        "nadpis": "🎥 Ukázka (Shorts)",
+        "zdroj": "_pZhjJSHaZc"
       },
       {
         "typ": "odkaz",
-        "nadpis": "📸 Ukázka fotogalerie",
-        "url": "https://photos.google.com/"
+        "nadpis": "📸 Otevřít Fotogalerii",
+        "url": "SEM_VLOZ_ODKAZ_NA_SVOJE_GOOGLE_ALBUM"
       }
     ]
   }
