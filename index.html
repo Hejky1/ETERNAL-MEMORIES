@@ -4,23 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Načítám...</title>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
+
+    <script data-goatcounter="https://em-cz.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
 
     <style>
-        /* === NOVÝ LUXUSNÍ DESIGN 2.0 === */
+        /* === NOVÝ LUXUSNÍ DESIGN 2.0 (Modern & Clean) === */
         :root {
-            --primary-color: #007bff;
-            --primary-dark: #0056b3;
-            --bg-dark: #121212;
-            --card-dark: #1e1e1e;
-            --text-light: #ffffff;
-            --text-dim: #b0b0b0;
+            --primary-color: #007bff; /* Hlavní modrá */
+            --primary-dark: #0056b3;  /* Tmavší modrá pro přechod */
+            --bg-dark: #121212;       /* Pozadí stránky */
+            --card-dark: #1e1e1e;     /* Pozadí karet/kontejneru */
+            --text-light: #ffffff;    /* Hlavní text */
+            --text-dim: #b0b0b0;      /* Tlumený text */
         }
 
         body {
@@ -32,6 +28,7 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
+            /* Jemný vzorek na pozadí pro prémiový pocit */
             background-image: radial-gradient(circle at center, #1a1a1a 0%, #121212 100%);
         }
 
@@ -68,6 +65,7 @@
             border-radius: 2px;
         }
         
+        /* Styl pro jednotlivé karty obsahu */
         .karta {
             background: #252525;
             border-radius: 16px;
@@ -103,7 +101,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
         }
 
-        /* TLAČÍTKA */
+        /* === NOVÝ DESIGN TLAČÍTEK === */
         .btn {
             display: block;
             width: 100%;
@@ -121,15 +119,27 @@
             margin-top: 15px;
             border: none;
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5); filter: brightness(1.1); }
-        .btn:active { transform: translateY(1px); box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3); transition: all 0.1s; }
 
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+            transition: all 0.1s;
+        }
+
+        /* Varianty tlačítek */
         .btn-call { background: linear-gradient(135deg, #28a745, #1e7e34); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
         .btn-call:hover { box-shadow: 0 8px 25px rgba(40, 167, 69, 0.5); }
 
         .btn-pdf { background: linear-gradient(135deg, #dc3545, #c82333); box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3); }
         .btn-pdf:hover { box-shadow: 0 8px 25px rgba(220, 53, 69, 0.5); }
 
+        /* Patička */
         .footer {
             text-align: center;
             font-size: 0.85rem;
@@ -162,14 +172,16 @@
 
             if (!idDesticky) {
                 titleEl.innerText = "Chyba kódu";
-                contentEl.innerHTML = "<p style='text-align:center'>Kód nebyl načten správně.</p>";
+                contentEl.innerHTML = "<p style='text-align:center'>Kód nebyl načten správně. Zkuste to znovu.</p>";
                 return;
             }
 
             try {
+                // Načtení databáze s ochranou proti cache (aby se změny projevily hned)
                 const response = await fetch('data.json?t=' + new Date().getTime());
                 if (!response.ok) throw new Error("Databáze nedostupná");
                 const db = await response.json();
+
                 const data = db[idDesticky];
 
                 if (!data) {
@@ -178,9 +190,11 @@
                     return;
                 }
 
+                // Nastavení nadpisu stránky
                 document.title = data.nadpis_stranky || "Vzpomínka";
                 titleEl.innerText = data.nadpis_stranky;
 
+                // Generování obsahu
                 let html = "";
                 
                 if (data.obsah && data.obsah.length > 0) {
@@ -193,13 +207,13 @@
                                     <h2>${item.nadpis}</h2>
                                     <audio controls style="width: 100%; margin-top: 10px; border-radius: 50px; outline: none;">
                                         <source src="${item.url}" type="audio/mpeg">
+                                        Váš prohlížeč nepodporuje audio element.
                                     </audio>
                                 </div>`;
                         }
 
                         // VIDEO KLASICKÉ (16:9)
                         else if (item.typ === 'video') {
-                            // Trik s loop=1 a playlist=ID zajistí smyčku a schová cizí videa
                             html += `
                                 <div class="karta">
                                     <div class="karta-padding"><h2>${item.nadpis}</h2></div>
@@ -237,13 +251,16 @@
                 } else {
                     html = "<p style='text-align:center'>Zatím zde není žádný obsah.</p>";
                 }
+
                 contentEl.innerHTML = html;
+
             } catch (err) {
                 console.error(err);
                 titleEl.innerText = "Chyba spojení";
-                contentEl.innerHTML = "<p style='text-align:center'>Chyba načítání dat.</p>";
+                contentEl.innerHTML = "<p style='text-align:center'>Nepodařilo se načíst data. Zkontrolujte připojení.</p>";
             }
         }
+
         nactiObsah();
     </script>
 </body>
