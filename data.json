@@ -18,6 +18,11 @@
       },
       {
         "typ": "audio",
+        "nadpis": " Přehrát Ragi (MP3)",
+        "url": "https://em-cz.github.io/q/audio/Ragi.mp3"
+      },
+      {
+        "typ": "audio",
         "nadpis": " Přehrát VIS (MP3)",
         "url": "https://em-cz.github.io/q/audio/vis.mp3"
       },
